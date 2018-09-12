@@ -19,6 +19,9 @@ import './mock' // simulation data
 
 import * as filters from './filters' // global filters
 
+/* import echarts from 'echarts'
+Vue.prototype.$echarts = echarts*/
+
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)

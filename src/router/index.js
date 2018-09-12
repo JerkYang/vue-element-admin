@@ -149,7 +149,8 @@ export const asyncRouterMap = [
     children: [
       { path: 'keyboard', component: () => import('@/views/charts/keyboard'), name: 'keyboardChart', meta: { title: 'keyboardChart', noCache: true }},
       { path: 'line', component: () => import('@/views/charts/line'), name: 'lineChart', meta: { title: 'lineChart', noCache: true }},
-      { path: 'mixchart', component: () => import('@/views/charts/mixChart'), name: 'mixChart', meta: { title: 'mixChart', noCache: true }}
+      { path: 'mixchart', component: () => import('@/views/charts/mixChart'), name: 'mixChart', meta: { title: 'mixChart', noCache: true }},
+      { path: 'glchart', component: () => import('@/views/charts/glChart'), name: 'glChart', meta: { title: 'glChart', noCache: true }}
     ]
   },
 

@@ -50,7 +50,8 @@
             <span>图片hover效果</span>
           </div>
           <div class="component-item">
-            <pan-thumb width="100px" height="100px" image="https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191">
+            <pan-thumb width="100px" height="100px"
+                       image="https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191">
               vue-element-admin
             </pan-thumb>
           </div>
@@ -91,66 +92,84 @@
           </div>
         </el-card>
       </el-col>
+      <el-col :span="8">
+        <el-card class="box-card" style="background: #272e38">
+          <div slot="header" class="clearfix">
+            <span><font style="color: #ffffff" size="6px">锅炉报警</font></span>
+          </div>
+          <div class="component-item" style="height:420px">
+            <div id="myEchart" style="{height:420px;width:100%}"></div>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script>
-import PanThumb from '@/components/PanThumb'
-import MdInput from '@/components/MDinput'
-import Mallki from '@/components/TextHoverEffect/Mallki'
-import DropdownMenu from '@/components/Share/dropdownMenu'
-import waves from '@/directive/waves/index.js' // 水波纹指令
+  import PanThumb from '@/components/PanThumb'
+  import MdInput from '@/components/MDinput'
+  import Mallki from '@/components/TextHoverEffect/Mallki'
+  import DropdownMenu from '@/components/Share/dropdownMenu'
+  import waves from '@/directive/waves/index.js' // 水波纹指令
 
 export default {
-  name: 'componentMixin-demo',
-  components: {
-    PanThumb,
-    MdInput,
-    Mallki,
-    DropdownMenu
-  },
-  directives: {
-    waves
-  },
-  data() {
-    const validate = (rule, value, callback) => {
-      if (value.length !== 6) {
-        callback(new Error('请输入六个字符'))
-      } else {
-        callback()
+    name: 'componentMixin-demo',
+    components: {
+      PanThumb,
+      MdInput,
+      Mallki,
+      DropdownMenu
+    },
+    directives: {
+      waves
+    },
+    data() {
+      const validate = (rule, value, callback) => {
+        if (value.length !== 6) {
+          callback(new Error('请输入六个字符'))
+        } else {
+          callback()
+        }
       }
-    }
-    return {
-      demo: {
-        title: ''
-      },
-      demoRules: {
-        title: [{ required: true, trigger: 'change', validator: validate }]
-      },
-      articleList: [
-        { title: '基础篇', href: 'https://juejin.im/post/59097cd7a22b9d0065fb61d2' },
-        { title: '登录权限篇', href: 'https://juejin.im/post/591aa14f570c35006961acac' },
-        { title: '实战篇', href: 'https://juejin.im/post/593121aa0ce4630057f70d35' },
-        { title: 'vueAdmin-template 篇', href: 'https://juejin.im/post/595b4d776fb9a06bbe7dba56' },
-        { title: '自行封装 component', href: 'https://segmentfault.com/a/1190000009090836' },
-        { title: '优雅的使用 icon', href: 'https://juejin.im/post/59bb864b5188257e7a427c09' },
-        { title: 'webpack4（上）', href: 'https://juejin.im/post/59bb864b5188257e7a427c09' },
-        { title: 'webpack4（下）', href: 'https://juejin.im/post/5b5d6d6f6fb9a04fea58aabc' }
-      ]
+      return {
+        chart: null,
+        demo: {
+          title: ''
+        },
+        demoRules: {
+          title: [{ required: true, trigger: 'change', validator: validate }]
+        },
+        articleList: [
+          { title: '基础篇', href: 'https://juejin.im/post/59097cd7a22b9d0065fb61d2' },
+          { title: '登录权限篇', href: 'https://juejin.im/post/591aa14f570c35006961acac' },
+          { title: '实战篇', href: 'https://juejin.im/post/593121aa0ce4630057f70d35' },
+          { title: 'vueAdmin-template 篇', href: 'https://juejin.im/post/595b4d776fb9a06bbe7dba56' },
+          { title: '自行封装 component', href: 'https://segmentfault.com/a/1190000009090836' },
+          { title: '优雅的使用 icon', href: 'https://juejin.im/post/59bb864b5188257e7a427c09' },
+          { title: 'webpack4（上）', href: 'https://juejin.im/post/59bb864b5188257e7a427c09' },
+          { title: 'webpack4（下）', href: 'https://juejin.im/post/5b5d6d6f6fb9a04fea58aabc' }
+        ]
+      }
+    },
+    beforeDestroy() {
+      if (!this.chart) {
+        return
+      }
+      this.chart.dispose()
+      this.chart = null
     }
   }
-}
 </script>
 
 <style scoped>
-.mixin-components-container {
-  background-color: #f0f2f5;
-  padding: 30px;
-  min-height: calc(100vh - 84px);
-}
-.component-item{
-  min-height: 100px;
-}
+  .mixin-components-container {
+    background-color: #f0f2f5;
+    padding: 30px;
+    min-height: calc(100vh - 84px);
+  }
+
+  .component-item {
+    min-height: 100px;
+  }
 </style>
